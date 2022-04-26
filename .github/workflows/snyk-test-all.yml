@@ -5,7 +5,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./gradle
+        working-directory: ${{ github.workspace }}/gradle
     steps:
       - uses: actions/checkout@master
       - name: Run Snyk to check for vulnerabilities
