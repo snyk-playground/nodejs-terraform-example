@@ -8,13 +8,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
+      - uses: snyk/actions/setup@master
+      - uses: actions/setup-gradle@v3
       - name: Snyk monitor
-        uses: snyk/actions/gradle@master
-        with:
-          command: monitor
-          args: --all-projects
+        run: cd ./gradle; snyk monitor --all-projects
         env:
-         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
           
   security-open_source-node:
     runs-on: ubuntu-latest
