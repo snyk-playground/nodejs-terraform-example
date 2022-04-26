@@ -5,7 +5,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
-        uses: snyk/actions/setup@master
+      - uses: snyk/actions/setup@master
         uses: actions/setup-node@v3
       - name: snyk test (open source)
         run: snyk test --all-projects
@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
-        uses: snyk/actions/setup@master
+      - uses: snyk/actions/setup@master
       - name: build container image
         run: docker build -t nodejs-terraform-example:latest -f Dockerfile
       - name: snyk test (container)
@@ -28,7 +28,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
-        uses: snyk/actions/setup@master
+      - uses: snyk/actions/setup@master
       - name: snyk test (IaC)
         run: snyk iac test
         env:
@@ -38,7 +38,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
-        uses: snyk/actions/setup@master
+      - uses: snyk/actions/setup@master
       - name: snyk test (code)
         run: snyk code test
         env:
