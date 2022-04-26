@@ -1,4 +1,4 @@
-name: Snyk (Monitor)
+name: Snyk Monitor
 on: push
 jobs:
   security-open_source-gradle:
