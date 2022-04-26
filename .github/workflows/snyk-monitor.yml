@@ -6,7 +6,6 @@ on:
 jobs:
   security-open_source-gradle:
     runs-on: ubuntu-latest
-    if: github.event.pull_request.merged == 'true'
     steps:
       - uses: actions/checkout@master
       - name: Snyk monitor
@@ -19,7 +18,6 @@ jobs:
           
   security-open_source-node:
     runs-on: ubuntu-latest
-    if: github.event.pull_request.merged == 'true'
     steps:
       - uses: actions/checkout@master
       - name: Snyk monitor
@@ -31,7 +29,6 @@ jobs:
           
   security-open_source-generic:
     runs-on: ubuntu-latest
-    if: github.event.pull_request.merged == 'true'
     steps:
       - uses: actions/checkout@master
       - uses: snyk/actions/setup@master
@@ -43,7 +40,6 @@ jobs:
   
   security-container:
     runs-on: ubuntu-latest
-    if: github.event.pull_request.merged == 'true'
     steps:
       - uses: actions/checkout@master
       - uses: snyk/actions/setup@master
@@ -56,7 +52,6 @@ jobs:
   
   security-iac:
     runs-on: ubuntu-latest
-    if: github.event.pull_request.merged == 'true'
     steps:
       - uses: actions/checkout@master
       - uses: snyk/actions/setup@master
