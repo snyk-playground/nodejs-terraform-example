@@ -1,5 +1,8 @@
 name: Snyk
-on: push
+on: 
+  push:
+    branches-ignore:
+      - master
 jobs:
   security-open_source-gradle:
     runs-on: ubuntu-latest
