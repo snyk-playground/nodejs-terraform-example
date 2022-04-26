@@ -3,6 +3,9 @@ on: push
 jobs:
   security-open_source-gradle:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./gradle
     steps:
       - uses: actions/checkout@master
       - name: Run Snyk to check for vulnerabilities
