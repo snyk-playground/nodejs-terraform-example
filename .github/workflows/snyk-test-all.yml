@@ -1,4 +1,4 @@
-name: Snyk Check (Open Source, Container, IaC, Code)
+name: Snyk
 on: push
 jobs:
   security-open_source:
