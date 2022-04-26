@@ -5,11 +5,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
-      - run: cd ${{ github.workspace }}/gradle
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/gradle@master
         with:
-          args: --all-sub-projects
+          args: --all-projects
         env:
          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
           
