@@ -1,5 +1,8 @@
 name: Snyk Monitor
-on: push
+on: 
+  push:
+    branches:
+      - master
 jobs:
   security-open_source-gradle:
     runs-on: ubuntu-latest
