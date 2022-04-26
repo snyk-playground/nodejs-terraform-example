@@ -1,0 +1,69 @@
+name: Snyk (Monitor)
+on: push
+jobs:
+  if: github.event.pull_request.merged == 'true'
+  security-open_source-gradle:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Snyk monitor
+        uses: snyk/actions/gradle@master
+        with:
+          command: monitor
+          args: --all-projects
+        env:
+         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+          
+  security-open_source-node:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Snyk monitor
+        uses: snyk/actions/node@master
+        with:
+          command: monitor
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+          
+  security-open_source-generic:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - uses: snyk/actions/setup@master
+      - uses: actions/setup-node@v3
+      - name: Snyk monitor
+        run: snyk monitor --all-projects
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+  
+  security-container:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - uses: snyk/actions/setup@master
+      - name: build container image
+        run: docker build -t nodejs-terraform-example:latest -f Dockerfile
+      - name: snyk Monitor
+        run: snyk container monitor nodejs-terraform-example:latest --file=Dockerfile
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+  
+  security-iac:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - uses: snyk/actions/setup@master
+      - name: snyk test (IaC)
+        run: snyk iac describe
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+  
+  #security-code:
+  #  runs-on: ubuntu-latest
+  #  steps:
+  #    - uses: actions/checkout@master
+  #    - uses: snyk/actions/setup@master
+  #    - name: snyk test (code)
+  #      run: snyk code test
+  #      env:
+  #        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
