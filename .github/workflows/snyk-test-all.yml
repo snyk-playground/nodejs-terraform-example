@@ -1,6 +1,17 @@
 name: Snyk
 on: push
 jobs:
+  security-open_source-gradle:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/gradle@master
+        with:
+          args: --all-sub-projects
+        env:
+         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+          
   security-open_source-node:
     runs-on: ubuntu-latest
     steps:
