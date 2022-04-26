@@ -3,11 +3,9 @@ on: push
 jobs:
   security-open_source-gradle:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ${{ github.workspace }}/gradle
     steps:
       - uses: actions/checkout@master
+      - run: cd ${{ github.workspace }}/gradle
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/gradle@master
         with:
