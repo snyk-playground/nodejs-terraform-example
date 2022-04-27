@@ -8,13 +8,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
-      - name: Snyk monitor
-        uses: snyk/actions/gradle@master
+      - uses: snyk/actions/setup@master
+      - uses: actions/setup-java@v3
         with:
-          command: monitor
-          args: --all-projects
+          distribution: 'temurin'
+          java-version: 11
+      - uses: gradle/gradle-build-action@v2
+        with:
+          gradle-version: 5.4
+      - name: Snyk monitor
+        run: cd ./gradle; snyk monitor --all-projects
         env:
-         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
           
   security-open_source-node:
     runs-on: ubuntu-latest
@@ -44,7 +49,7 @@ jobs:
       - uses: actions/checkout@master
       - uses: snyk/actions/setup@master
       - name: build container image
-        run: docker build -t nodejs-terraform-example:latest -f Dockerfile
+        run: docker build -t nodejs-terraform-example:latest -f Dockerfile .
       - name: snyk Monitor
         run: snyk container monitor nodejs-terraform-example:latest --file=Dockerfile
         env:
@@ -56,16 +61,7 @@ jobs:
       - uses: actions/checkout@master
       - uses: snyk/actions/setup@master
       - name: snyk test (IaC)
-        run: snyk iac describe
+        run: snyk iac describe --all
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-  
-  #security-code:
-  #  runs-on: ubuntu-latest
-  #  steps:
-  #    - uses: actions/checkout@master
-  #    - uses: snyk/actions/setup@master
-  #    - name: snyk test (code)
-  #      run: snyk code test
-  #      env:
-  #        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
