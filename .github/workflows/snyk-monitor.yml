@@ -61,16 +61,7 @@ jobs:
       - uses: actions/checkout@master
       - uses: snyk/actions/setup@master
       - name: snyk test (IaC)
-        run: snyk iac describe
+        run: snyk iac describe --all
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-  
-  #security-code:
-  #  runs-on: ubuntu-latest
-  #  steps:
-  #    - uses: actions/checkout@master
-  #    - uses: snyk/actions/setup@master
-  #    - name: snyk test (code)
-  #      run: snyk code test
-  #      env:
-  #        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
