@@ -8,12 +8,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
-      - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/gradle@master
+      - uses: snyk/actions/setup@master
+      - uses: actions/setup-java@v3
         with:
-          args: --all-projects
+          distribution: 'temurin'
+          java-version: 11
+      - uses: gradle/gradle-build-action@v2
+        with:
+          gradle-version: 5.4
+      - name: Snyk monitor
+        run: cd ./gradle; snyk test --all-projects
         env:
-         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
           
   security-open_source-node:
     runs-on: ubuntu-latest
